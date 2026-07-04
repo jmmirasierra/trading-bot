@@ -18,6 +18,9 @@ class Trade:
         self.fees = 0.0
         self.status = 'OPEN'
         self.partials_taken = 0
+        self.initial_risk = abs(entry_price - sl)   # 1R in price
+        self.be_moved = False                        # SL already moved to breakeven
+        self.partial_done = False                    # 50% partial exit executed
 
 class BacktestEngine:
     def __init__(self, strategy_engine: StrategyEngine, initial_capital: float = 10000.0, fee_rate: float = 0.0006, slippage_pct: float = 0.0005):
@@ -41,9 +44,11 @@ class BacktestEngine:
             current_candle = window_15m.iloc[-1]
             timestamp = current_candle['timestamp']
             
-            # Sync higher timeframes
-            window_1h = df_1h[df_1h['timestamp'] <= timestamp]
-            window_4h = df_4h[df_4h['timestamp'] <= timestamp]
+            # Sync higher timeframes (ensure only fully closed candles are used to avoid lookahead bias)
+            h1_ms = 3_600_000
+            h4_ms = 14_400_000
+            window_1h = df_1h[df_1h['timestamp'] + h1_ms <= timestamp]
+            window_4h = df_4h[df_4h['timestamp'] + h4_ms <= timestamp]
             
             if len(window_1h) == 0 or len(window_4h) == 0:
                 continue
