@@ -1,0 +1,26 @@
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local configuration
+.env
+.env.*
+
+# Logs
+logs/
+*.log
+
+# Heavy data directories
+btcusdt_klines_data/
+data/
+
+# IDE files
+.idea/
+.vscode/
+.DS_Store

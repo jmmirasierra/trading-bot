@@ -1,0 +1,8 @@
+supabase==2.4.3
+pydantic==2.7.1
+pydantic-settings==2.2.1
+ccxt==4.3.44
+pandas
+pandas-ta
+python-dotenv==1.0.1
+loguru==0.7.2

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  trading-bot:
+    build: .
+    container_name: btc_trading_bot
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    # memory limits to prevent the bot from crashing the host if memory leaks occur
+    deploy:
+      resources:
+        limits:
+          memory: 512M
