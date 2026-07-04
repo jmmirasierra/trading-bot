@@ -18,7 +18,7 @@ logs/
 
 # Heavy data directories
 btcusdt_klines_data/
-data/
+/data/
 
 # IDE files
 .idea/
